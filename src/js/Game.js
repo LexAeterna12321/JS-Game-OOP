@@ -1,33 +1,34 @@
-// import Wallet from "./Wallet";
+import Wallet from "./Wallet";
+import Draw from "./Draw";
+import Result from "./Result";
+import Statistics from "./Statistics";
 
 class Game {
   constructor(startMoney) {
     this.wallet = new Wallet(startMoney);
     this.stats = new Statistics();
+    this.draw = new Draw();
   }
   startGame() {
+    let { bet, wallet, stats, draw } = this;
     const startBtn = document.querySelector("button#start");
     startBtn.addEventListener("click", () => {
-      this.wallet.checkCanPlay();
+      bet = document.querySelector("#bid").value;
+      const roundResult = document.querySelector(".roundResult");
+      wallet.checkCanPlay(bet);
+      const drawRes = Result.getResult(draw.drawColors());
+      wallet.changeWalletValue(bet, bet, drawRes);
       this.render();
-      // testowanie dodawania do statystyk - usunąć potem
-      const rand = Math.round(Math.random());
-      if (rand == 1) {
-        this.stats.addGameToStats(true);
-      } else if (rand == 0) {
-        this.stats.addGameToStats(false);
-      }
-      // koniec testu
-      this.stats.ShowGameResults();
+      stats.addGameToStats(drawRes);
+      stats.ShowGameResults();
+      roundResult.textContent = Result.showResult(drawRes, roundResult);
     });
   }
+
   render() {
     const walletSpan = document.querySelector("span.wallet");
     walletSpan.textContent = this.wallet.getValue();
   }
 }
-const game = new Game(200);
-game.startGame();
-game.render();
 
-// export default Game;
+export default Game;

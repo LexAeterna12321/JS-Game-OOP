@@ -18,3 +18,5 @@ class Statistics {
     lossesSpan.textContent = losses;
   }
 }
+
+export default Statistics;

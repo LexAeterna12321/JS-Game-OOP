@@ -9,27 +9,29 @@ class Wallet {
       _money = value;
     };
     // sprawdzanie czy można grać
-    this.checkCanPlay = function() {
-      this.bet = document.querySelector("#bid").value;
-
-      if (typeof parseFloat(this.bet) !== "number" || this.bet <= 0)
-        return console.error("Wpisz prawidłową liczbę");
+    this.checkCanPlay = function(bet) {
+      if (typeof parseFloat(bet) !== "number" || bet <= 0) {
+        alert("Wpisz prawidłową liczbę");
+        throw Error("Wpisz prawidłową liczbę");
+      }
 
       if (_money <= 0) {
-        return alert("Koniec gry. Brak środków.");
-      } else if (this.bet <= _money) {
-        this.changeWalletValue(this.bet);
+        alert("Koniec gry. Brak środków.");
+        throw Error("Koniec gry. Brak środków.");
+      } else if (bet <= _money) {
         return _money;
-      } else throw Error("za mało kasy");
+      } else {
+        alert("za mało kasy");
+        throw Error("za mało kasy");
+      }
     };
     // zmiana kwoty środków
-    this.changeWalletValue = function(value, result) {
-      _money -= this.bet;
-      if (result) {
-        _money += parseFloat(value * 3); // może trzeba przenieść do innej sekcji np. Result, żeby tutaj przekazywać sam wynik
-      }
+    this.changeWalletValue = function(bet, value, result) {
+      _money -= bet;
+      if (!result) return;
+      return (_money += value * 3);
     };
   }
 }
 
-// export default Wallet;
+export default Wallet;

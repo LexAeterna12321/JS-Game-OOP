@@ -1,0 +1,18 @@
+{
+  "name": "bandyta",
+  "version": "1.0.0",
+  "description": "oop js",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode development",
+    "build:prod": "webpack --mode production"
+  },
+  "author": "lex",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "webpack": "^4.26.0",
+    "webpack-cli": "^3.1.2"
+  }
+}
